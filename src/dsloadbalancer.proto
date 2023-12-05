@@ -11,6 +11,7 @@ service SystemService {
     // Sends a Ping to Nodes to see which Nodes are running
     rpc SendPing (PingMessage) returns (PingResponse) {}
 
+    // Handles Tasks
     rpc handleTask (stream TaskInfo) returns (Result) {}
 
 }
@@ -21,11 +22,11 @@ message KVPair {
 }
 
 message BulkPutResponse {
-    bool success = 1; // Corrected the spelling of 'success'
+    bool success = 1;
 }
 
 message BulkGetRequest {
-    repeated int32 keys = 1; // Using int32 for keys
+    repeated int32 keys = 1;
 }
 
 message PingMessage {
@@ -40,7 +41,6 @@ message PingResponse {
     string type = 4;
 }
 
-// The message representing a task request.
 message TaskInfo {
     int32 dataSize = 1;
     int32 minKey = 2;
@@ -51,7 +51,7 @@ message TaskInfo {
     string storageNodePort = 7;
 }
 
-// The message for a response, which is a hashmap with 10 unique keys.
+// The message for a response, which is a hashmap
 message Result {
     repeated KVPair hashMap = 1;
 
