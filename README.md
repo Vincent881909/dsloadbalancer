@@ -1,23 +1,66 @@
-# dsloadbalancer
-Distributed Load Balancer (CPSC416 Capstone Project)
+# Distributed Load Balancer (dsloadbalancer)
 
-Code can be built using cmake:
+Welcome to the Distributed Load Balancer project! This system is designed as a capstone project for UBC CPSC416 and aims to efficiently distribute and manage workloads across a network of storage and worker nodes.
+
+## Features
+
+- **Dynamic Load Distribution**: The system dynamically distributes data across multiple storage nodes and assigns tasks to worker nodes, ensuring efficient load balancing.
+- **gRPC Communication**: Utilizes gRPC for efficient and robust communication between nodes.
+- **Scalability**: Easily scale the number of storage and worker nodes to meet the demand.
+- **Performance Metrics**: Measures and reports the time taken for the workers to produce the final result, allowing for performance optimization.
+
+## Getting Started
+
+### Prerequisites
+
+- Ensure you have `cmake` installed on your system to build the project.
+- The system is built and tested on UNIX-based systems.
+
+### Building the Code
+
+Clone the repository to your local machine. Navigate to the cloned directory and run the following commands:
+
+```bash
 $ mkdir -p cmake/build  
 $ cd cmake/build  
 $ cmake ../..  
 $ make  
 $ cd ../..  
+```
 
+### Running the System
 
-Code can be run using the provided shell script
+Execute the system using the provided shell script with the desired parameters:
+
+```bash
+./runSystem [data_size] [storage_nodes] [worker_nodes]
+```
+
+- `data_size`: The number of random key-value pairs to generate and distribute.
+- `storage_nodes`: The number of Storage Nodes in the system.
+- `worker_nodes`: The number of Worker Nodes in the system.
+
+For example:
+
+```bash
 ./runSystem 100000 4 3
+```
 
-Here, the first argument represents the data size you want to test the system against. In the example above, the program datagen will produce 100000 random key value pairs (Values range between 1-10).
-The second argument represents the number of Storage Nodes you want to spawn. Lastly, the third argument represents the number of Worker Nodes you want to use. Once you run the shell script the systemn first stores the dataset across all available Storage Nodes. In thi example above, each Storage Node would store 25000 value pairs. Several SubTasks will be produced and dsitributed across all available Worker Nodes. The worker nodes retrieve the relevenat data and produce a subResult. Once all subResults have been received the program aggregates them to a final result which will be printed. Addtionally, the program times how fast the workers can produce a final result.
+This command runs the system with 100,000 key-value pairs, 4 Storage Nodes, and 3 Worker Nodes.
 
-You can validate the correctness of the result by running ./validation
+### Validating Results
 
-(This program uses a simple monolithic architecture to compute the same task.)
-Both program will print their results to the terminal. They are both iterating through the dataset produced calculating the most frequent integer.
+To ensure the correctness of the system's output, you can run the validation script:
 
+```bash
+./validation
+```
 
+This script compares the results produced by the distributed system against a monolithic architecture implementation.
+
+## Documentation
+
+For a deeper understanding of the system's design and implementation, refer to the following documents:
+
+- [System Design](https://github.com/Vincent881909/dsloadbalancer/blob/main/docs/SystemDesign.pdf)
+- [Project Reflection](https://github.com/Vincent881909/dsloadbalancer/blob/main/docs/ProjectReflection.pdf)
